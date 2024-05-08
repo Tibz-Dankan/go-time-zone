@@ -71,3 +71,15 @@ func main() {
 	}
 
 }
+
+// ===OUTPUT===
+
+// 2024/05/08 09:59:41 Go Time Zone
+// Offset from UTC for Berlin time: 02:00
+// 2024/05/08 09:59:41 timeFormat:  8-May-2024 15:00:00 20
+// 2024/05/08 09:59:41 year:  2024
+// 2024/05/08 09:59:41 month:  May
+// 2024/05/08 09:59:41 day:  8
+// Time in code (Berlin Time): 0000-01-01 00:54:09 +0053 LMT
+// Current time in Berlin: 2024-05-08 08:59:41.021492047 +0200 CEST
+// The time in the code does not match the current time in Berlin.
