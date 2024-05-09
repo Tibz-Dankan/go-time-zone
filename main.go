@@ -18,6 +18,14 @@ func main() {
 		return
 	}
 
+	locLocal, err := time.LoadLocation("Local")
+	if err != nil {
+		fmt.Println("Error loading location:", err)
+		return
+	}
+	currentTimeLocal := currentTime.In(locLocal)
+	log.Println("currentTimeLocal:", currentTimeLocal)
+
 	// Get the current time in Berlin
 	currentTimeBerlin := currentTime.In(locBerlin)
 
@@ -25,6 +33,17 @@ func main() {
 	_, offset := currentTimeBerlin.Zone()
 	offsetHours := offset / 3600          // Convert offset from seconds to hours
 	offsetMinutes := (offset % 3600) / 60 // Convert remaining seconds to minutes
+
+	// Get the time zone of the current local device
+	// loc, _ := currentTime.Zone()
+	location := currentTime.Location()
+	log.Println("location :", location)
+
+	timeZone, offset := currentTime.In(location).Zone()
+
+	// Print the time zone and offset
+	log.Println("Local device Time Zone:", timeZone)
+	log.Println("Local device Offset:", offset)
 
 	// Print the offset
 	fmt.Printf("Offset from UTC for Berlin time: %02d:%02d\n", offsetHours, offsetMinutes)
@@ -47,7 +66,9 @@ func main() {
 
 	// Extract the layout from the current time
 	// timeLayout := currentTime.Format("02-01-2006 15:04:05 -0700")
-	timeLayout := currentTime.Format(timeFormat)
+	timeLayout := "02-01-2006 15:04:05 -0700"
+	// timeLayout := currentTime.Format(timeFormat)
+	log.Println("timeLayout===>", timeLayout)
 
 	// Parse the current time using the extracted layout
 	givenTime, err := time.Parse(timeLayout, currentTime.Format(timeLayout))
@@ -56,6 +77,7 @@ func main() {
 		return
 	}
 
+	fmt.Printf("givenTime time in locally: %s\n", givenTime)
 	// Convert the given time to Berlin time
 	berlinTime := givenTime.In(locBerlin)
 
