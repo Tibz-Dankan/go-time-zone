@@ -53,6 +53,10 @@ func main() {
 	month := currentTime.Month()
 	day := currentTime.Day()
 
+	offsetz := currentTime.Format("-0700")
+
+	fmt.Println("Offset:::=>:::", offsetz)
+
 	// get current date
 	date := fmt.Sprint(day) + "-" + fmt.Sprint(month) + "-" + fmt.Sprint(year)
 	timeZoneOffSet := fmt.Sprint(offsetHours) + fmt.Sprint(offsetMinutes)
@@ -66,12 +70,14 @@ func main() {
 
 	// Extract the layout from the current time
 	// timeLayout := currentTime.Format("02-01-2006 15:04:05 -0700")
-	timeLayout := "02-01-2006 15:04:05 -0700"
+	// timeLayout := "02-01-2006 15:04:05 -0700"
+	timeLayout := "02-Jan-2006 15:04:05 -0700"
 	// timeLayout := currentTime.Format(timeFormat)
 	log.Println("timeLayout===>", timeLayout)
 
 	// Parse the current time using the extracted layout
 	givenTime, err := time.Parse(timeLayout, currentTime.Format(timeLayout))
+	// givenTime, err := time.Parse(timeLayout, timeFormat)
 	if err != nil {
 		fmt.Println("Error parsing time:", err)
 		return
@@ -80,6 +86,9 @@ func main() {
 	fmt.Printf("givenTime time in locally: %s\n", givenTime)
 	// Convert the given time to Berlin time
 	berlinTime := givenTime.In(locBerlin)
+	offsetb := berlinTime.Format("-0700")
+
+	fmt.Println("offsetb:::=>:::", offsetb)
 
 	// Print the times for comparison
 	fmt.Printf("Time in code (Berlin Time): %s\n", berlinTime)
